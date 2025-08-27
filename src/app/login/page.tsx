@@ -115,9 +115,8 @@ export default function LoginPage() {
           ) : (
             <p className="mt-2 text-xs text-white/60">
               Allowed formats: <span className="font-mono">09xxxxxxxxx</span>,{" "}
-              <span className="font-mono">+989xxxxxxxxx</span>
-              <span className="font-mono">00989xxxxxxxxx</span>
-              <span className="font-mono">+989xxxxxxxxx</span>
+              <span className="font-mono">+989xxxxxxxxx</span>,{" "}
+              <span className="font-mono">00989xxxxxxxxx</span>,{" "}
             </p>
           )}
         </div>
@@ -132,8 +131,6 @@ export default function LoginPage() {
           >
             {loading || isSubmitting ? "Signing in..." : "Sign in"}
           </Button>
-
-
         </div>
 
         {/* footer small info */}
