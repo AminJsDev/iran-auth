@@ -1,5 +1,5 @@
 # 📱 Simple Client-Side Authentication System
-![React](https://raw.githubusercontent.com/AminJsDev/iran-auth/main/master/public/assets/React.svg)
+![React](https://raw.githubusercontent.com/AminJsDev/iran-auth/master/public/assets/React.svg)
 ![Typescript](https://raw.githubusercontent.com/AminJsDev/iran-auth/master/public/assets/Typescript.svg)
 ![TailwindCSS](https://raw.githubusercontent.com/AminJsDev/iran-auth/master/public/assets/TailwindCSS.svg)
 ![License](https://raw.githubusercontent.com/AminJsDev/iran-auth/master/public/assets/License.svg)
