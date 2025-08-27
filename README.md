@@ -1,145 +1,145 @@
-🔐 Iranian Mobile Authentication Sample
-یک پروژه فرانت‌اند نمونه برای پیاده‌سازی فرآیند احراز هویت با شماره موبایل ایرانی
+# 📱 Simple Client-Side Authentication System
 
-## 🛠️ تکنولوژی‌ها
+This project is a **Next.js + TypeScript** based client-side authentication demo.  
+It allows users to log in with their **Iranian mobile number**, retrieves mock user data, and stores the session on the **client-side (localStorage)**.  
+A simple **Dashboard** welcomes the user after login and provides a logout option.
 
-![React](assets/images/React.svg)
-![TypeScript](assets/images/Typescript.svg) 
-![TailwindCSS](assets/images/TailwindCSS.svg)
-![License](assets/images/License.svg)
+---
 
-✨ ویژگی‌های پروژه
-✅ اعتبارسنجی شماره موبایل ایرانی با regex
+## 🚀 Features
 
-📞 سیستم ارسال و تأیید کد احراز
+- **Login Page** with:
+  - Single input for **Iranian mobile number**
+  - Client-side validation (`09xxxxxxxxx`, `+989xxxxxxxxx`)
+  - "Login" button with loading & disabled states
 
-🔐 مدیریت وضعیت احراز هویت با Context API
+- **Dashboard Page** with:
+  - Welcome message showing the user's **name**
+  - Logout button → clears localStorage & redirects to Login
 
-💾 ذخیره‌سازی امن توکن در localStorage
+- **API Handling**
+  - Mock API request (`fetch`)
+  - Saves user data (`name`, `email`, `picture`) to `localStorage`
 
-🎨 طراحی ریسپانسیو و مدرن با TailwindCSS
+- **UI**
+  - Built with **Tailwind CSS** only
+  - Responsive (mobile-first design)
+  - Accessible (ARIA attributes, focus-visible states)
 
-🧪 تست‌های واحد برای کامپوننت‌های اصلی
+---
 
-🚀 بهینه‌سازی شده برای production
+## 🛠️ Tech Stack
 
-🚀 شروع سریع
-پیش‌نیازها
-Node.js 16.x یا بالاتر
+- [Next.js (App Router)](https://nextjs.org/docs/app) + [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- LocalStorage (for client-side session handling)
 
-npm یا yarn
+---
 
-مرورگر مدرن
+## 📂 Project Structure
+```
+├── app
+│ ├── layout.tsx # Root layout
+│ ├── page.tsx # Login page
+│ ├── dashboard
+│ │ └── page.tsx # Dashboard page
+│
+├── components
+│ ├── Input.tsx # Reusable input component
+│ ├── Button.tsx # Reusable button component
+│
+├── lib
+│ └── utils.ts # Helper functions (validation, etc.)
+│
+├── public # Static assets
+│
+├── styles
+│ └── globals.css # Tailwind setup
+│
+└── README.md
+```
 
-نصب و راه‌اندازی
-# 1. کلون کردن ریپازیتوری
+
+---
+
+## ⚙️ Installation & Setup
+
+1. **Clone the repository**
+
+```bash
 git clone https://github.com/AminJsDev/iran-auth.git
+cd iran-auth
+```
 
-# 2. رفتن به دایرکتوری پروژه
-cd iranian-auth-sample
-
-# 3. نصب dependencies
+2. **Install dependencies** 
+```bash
 npm install
+# or
+yarn install
+```
 
-# 4. اجرای پروژه در حالت توسعه
+2. **Run the development server** 
+```bash
 npm run dev
+# or
+yarn dev
+```
 
-# 5. باز کردن در مرورگر
-# به آدرس http://localhost:3000 مراجعه کنید
+4. **Open http://localhost:3000 in your browser 🚀**
 
-ساخت برای Production
-# ساخت bundle بهینه‌شده
-npm run build
+---
 
-# پیش‌نمایش production build
-npm run preview
+# 🔑 User Login and Logout Flow
 
-📱 Flow پروژه
-مرحله	توضیحات
-1. صفحه ورود	کاربر شماره موبایل ایرانی خود را وارد می‌کند
-2. اعتبارسنجی	بررسی صحت فرمت شماره موبایل (09xxxxxxxxx)
-3. دریافت کد	ارسال کد تأیید به شماره (شبیه‌سازی شده)
-4. تأیید کد	کاربر کد دریافتی را وارد می‌کند (کد پیش‌فرض: 123456)
-5. ایجاد توکن	تولید و ذخیره توکن احراز هویت
-6. داشبورد	انتقال کاربر به صفحه اصلی پس از ورود موفق
-7. خروج	امکان خروج و پاکسازی اطلاعات کاربر
+## Login Process
+1. **Open Login Page**  
+   The user opens the login page.
 
+2. **Enter Valid Iranian Mobile Number**  
+   The user enters a valid Iranian mobile number and clicks the **Login** button.
 
-🛠️ تکنولوژی‌های استفاده شده
-Framework: React 18 + TypeScript
+3. **Call Mock API**  
+   - The mock API is called.
+   - User data is stored in `localStorage`.
+   - The user is redirected to the **Dashboard**.
 
-Styling: Tailwind CSS
+4. **Display Dashboard**  
+   The dashboard displays a welcome message:  
+   `Welcome, {user.name}`
 
-State Management: React Context API
+## Logout Process
+1. **Click Logout**  
+   The user clicks the **Logout** button.
 
-Form Handling: React Hook Form + Yup
+2. **Clear Session**  
+   - The user session is cleared.
+   - The user is redirected to the **Login** page.
 
-HTTP Client: Axios
+___
 
-Testing: Jest + React Testing Library
+# ✅ Evaluation Criteria
 
-Build Tool: Vite
+## Code Quality
+- Code is clean, modular, and maintainable.
 
-📁 ساختار پروژه
-src/
-├── components/          # کامپوننت‌های قابل استفاده مجدد
-│   ├── ui/             # کامپوننت‌های پایه UI
-│   ├── auth/           # کامپوننت‌های مرتبط با احراز هویت
-│   └── layout/         # کامپوننت‌های layout
-├── contexts/           # Contextهای React
-│   └── AuthContext.tsx # مدیریت وضعیت احراز هویت
-├── hooks/              # Hookهای سفارشی
-├── services/           # سرویس‌های API و utilities
-├── types/              # TypeScript type definitions
-├── utils/              # توابع utility
-├── pages/              # کامپوننت‌های صفحه
-└── __tests__/          # تست‌های واحد
+## TypeScript Usage
+- Utilizes strong types with no usage of `any`.
 
-🔌 API Endpoints
-پروژه از API شبیه‌سازی شده استفاده می‌کند:
+## UI/UX
+- Features a responsive and clean design using **Tailwind CSS**.
 
-ارسال شماره موبایل
-POST /api/auth/login
-Body: { phone: "09123456789" }
-Response: { success: true, message: "کد احراز ارسال شد" }
+## Logic
+- Implements proper validation, API handling, redirects, and authentication state management.
 
-تأیید کد احراز
-POST /api/auth/verify
-Body: { phone: "09123456789", code: "123456" }
-Response: { 
-  success: true, 
-  token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...", 
-  user: { 
-    id: 1, 
-    name: "کاربر نمونه", 
-    phone: "09123456789" 
-  }
-}
-دریافت اطلاعات کاربر
-GET /api/user/profile
-Headers: { Authorization: "Bearer <token>" }
-Response: { 
-  user: { 
-    id: 1, 
-    name: "کاربر نمونه", 
-    phone: "09123456789" 
-  }
-}
-🤝 مشارکت در پروژه
-پروژه را Fork کنید
+## Scalability
+- Uses reusable components and a well-structured architecture.
 
-Branch جدید ایجاد کنید (git checkout -b feature/feature-name)
+---
 
-تغییرات را Commit کنید (git commit -m 'Add new feature')
+# 📌 Notes
 
-تغییرات را Push کنید (git push origin feature/feature-name)
-
-Pull Request ایجاد کنید
+- This project does not use a backend authentication system.
+- User state/session is stored entirely on the client-side using `localStorage`.
+- API is simulated with a mock `fetch`.
 
 
-
-
-📬 تماس با من
-ایمیل: aminakbari.dev@gmail.com
-
-لینکدین: [Amin Akbari](https://www.linkedin.com/in/aminjsdev/)
