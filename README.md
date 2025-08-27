@@ -1,10 +1,10 @@
 🔐 Iranian Mobile Authentication Sample
 یک پروژه فرانت‌اند نمونه برای پیاده‌سازی فرآیند احراز هویت با شماره موبایل ایرانی
 
-https://img.shields.io/badge/React-18.2.0-blue
-https://img.shields.io/badge/TypeScript-5.0-blue
-https://img.shields.io/badge/TailwindCSS-3.3-purple
-https://img.shields.io/badge/License-MIT-green
+![React](https://img.shields.io/badge/React-18.2.0-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.3-38B2AC?logo=tailwind-css&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 ✨ ویژگی‌های پروژه
 ✅ اعتبارسنجی شماره موبایل ایرانی با regex
