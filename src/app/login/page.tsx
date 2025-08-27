@@ -99,7 +99,7 @@ export default function LoginPage() {
           <Input
             id="phone"
             inputMode="numeric"
-            placeholder="09xxxxxxxxx or +989xxxxxxxxx"
+            placeholder="09xxxxxxxxx or +989xxxxxxxxx or 00989xxxxxxxxx"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "phone-error" : undefined}
             {...register("phone")}
@@ -116,6 +116,8 @@ export default function LoginPage() {
             <p className="mt-2 text-xs text-white/60">
               Allowed formats: <span className="font-mono">09xxxxxxxxx</span>,{" "}
               <span className="font-mono">+989xxxxxxxxx</span>
+              <span className="font-mono">00989xxxxxxxxx</span>
+              <span className="font-mono">+989xxxxxxxxx</span>
             </p>
           )}
         </div>
@@ -131,28 +133,7 @@ export default function LoginPage() {
             {loading || isSubmitting ? "Signing in..." : "Sign in"}
           </Button>
 
-          <button
-            type="button"
-            onClick={() => {
-              // quick demo account (fills a demo number and triggers submit)
-              const demo = "+989123456789";
-              (
-                document.getElementById("phone") as HTMLInputElement | null
-              )?.focus();
-              // set value programmatically
-              const ev = new Event("input", { bubbles: true });
-              const el = document.getElementById(
-                "phone"
-              ) as HTMLInputElement | null;
-              if (el) {
-                el.value = demo;
-                el.dispatchEvent(ev);
-              }
-            }}
-            className="px-4 py-3 rounded-lg border border-white/6 text-sm text-white/80 hover:bg-white/3"
-          >
-            Demo
-          </button>
+
         </div>
 
         {/* footer small info */}

@@ -9,7 +9,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fa" dir="rtl">
+    <html lang="en" dir="ltr">
       <body className="bg-cyber-bg min-h-screen text-white antialiased">
         {/* neon grid background + container */}
         <div className="min-h-screen w-full flex items-center justify-center">
