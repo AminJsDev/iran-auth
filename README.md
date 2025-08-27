@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Iran Mobile Login (Next.js App Router + TypeScript + Tailwind)
 
-## Getting Started
+یک پروژهٔ نمونه برای ورود با **شماره موبایل ایران** (کلاینت‌ساید). هدف: پیاده‌سازی flow ساده‌ی Login → fetch mock API → save in `localStorage` → Dashboard → Logout.
 
-First, run the development server:
+## Tech stack
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS (only)
+- react-hook-form + zod (client validation)
 
+## ساختار پروژه
+src/
+app/
+layout.tsx
+page.tsx # redirect -> /login
+login/page.tsx
+dashboard/page.tsx
+components/
+ui/ # Button, Input, Label
+lib/
+phone.ts
+storage.ts
+types.ts
+
+## قابلیت‌ها
+- اعتبارسنجی سمت کلاینت برای فرمت‌های مجاز ایران: `09xxxxxxxxx`, `+989xxxxxxxxx`, `00989xxxxxxxxx`
+- نرمال‌سازی شماره به فرمت `+98...`
+- ذخیره‌سازی user (name, email, picture, phone) در `localStorage`
+- دسترسی: `aria-invalid`, `role="alert"`, `aria-live` و focus-visible
+- موبایل-فرست (mobile-first) و Tailwind-only styling
+- README با دستورالعمل‌های راه‌اندازی و دیپلوی
+
+## راه‌اندازی محلی
+
+1. کلون یا ایجاد پروژه (اگر از صفر):
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+npx create-next-app@latest iran-auth --ts --app --src-dir --import-alias "@/*"
+cd iran-auth
