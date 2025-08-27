@@ -2,12 +2,12 @@
 
 import React from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui";
+import { Button, Avatar } from "@/components/ui";
 import { clearUser, getUser } from "@/components/lib/storage";
 
 export default function DashboardPage() {
   const router = useRouter();
-  const [ready, setReady] = React.useState(false);
+  const [userReady, setUserReady] = React.useState(false);
   const [name, setName] = React.useState<string>("");
   const [email, setEmail] = React.useState<string>("");
   const [picture, setPicture] = React.useState<string>("");
@@ -21,34 +21,94 @@ export default function DashboardPage() {
     setName(u.name);
     setEmail(u.email);
     setPicture(u.picture);
-    setReady(true);
+    setUserReady(true);
   }, [router]);
 
-  if (!ready) return <p className="mt-16">در حال بارگذاری...</p>;
+  if (!userReady) {
+    return (
+      <div className="card-cyber rounded-2xl glow-border p-6 card-padding-sm">
+        <p className="text-white/70">Loading your dashboard...</p>
+      </div>
+    );
+  }
 
   return (
-    <section className="mt-10 space-y-6">
-      <div className="flex items-center gap-4">
-        <img
-          src={picture}
-          alt="عکس کاربر"
-          className="h-16 w-16 rounded-full ring-2 ring-gray-200 object-cover"
-        />
-        <div>
-          <h1 className="text-xl font-semibold">خوش آمدید، {name} 👋</h1>
-          <p className="text-sm text-gray-600">{email}</p>
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 items-start">
+      {/* left: welcome card */}
+      <div className="sm:col-span-2 card-cyber rounded-2xl glow-border p-6 card-padding-sm">
+        <div className="flex items-center gap-4">
+          <Avatar src={picture} alt={name} size={96} />
+          <div>
+            <h2 className="text-2xl font-extrabold">{`Welcome, ${name}`}</h2>
+            <p className="text-sm text-white/70 mt-1">{email}</p>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <h3 className="text-sm text-white/80 mb-2">Quick actions</h3>
+          <div className="flex flex-wrap gap-3">
+            <Button
+              onClick={() => {
+                // simulate a profile edit redirect
+                alert("This is a demo — profile editing not implemented.");
+              }}
+            >
+              Edit profile
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                // simulate another action
+                alert("Demo action triggered.");
+              }}
+            >
+              View activity
+            </Button>
+          </div>
+        </div>
+
+        <div className="mt-6 text-sm text-white/60">
+          <p>
+            This is a client-side demo. User session is stored in{" "}
+            <span className="font-mono">localStorage</span>.
+          </p>
         </div>
       </div>
 
-      <Button
-        variant="default"
-        onClick={() => {
-          clearUser();
-          router.replace("/login");
-        }}
-      >
-        خروج
-      </Button>
-    </section>
+      {/* right: stats / logout */}
+      <div className="card-cyber rounded-2xl glow-border p-6 card-padding-sm">
+        <div className="flex flex-col gap-4">
+          <div>
+            <h4 className="text-sm text-white/80">Session</h4>
+            <p className="mt-2 text-lg font-medium">{name}</p>
+          </div>
+
+          <div>
+            <h4 className="text-sm text-white/80">Phone</h4>
+            <p className="mt-2 text-sm text-white/70">
+              {getUser()?.phone ?? "-"}
+            </p>
+          </div>
+
+          <div className="mt-4">
+            <Button
+              variant="primary"
+              onClick={() => {
+                clearUser();
+                router.replace("/login");
+              }}
+            >
+              Logout
+            </Button>
+          </div>
+
+          <div className="mt-3 text-xs text-white/50">
+            <p>
+              Secure: client-side demo only. Do not use for real auth flows.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

@@ -24,28 +24,31 @@ type FormValues = z.infer<typeof schema>;
 export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = React.useState(false);
-
-  React.useEffect(() => {
-    // اگر کاربر لاگین بود، مستقیم بفرستیم داشبورد
-    try {
-      const raw = localStorage.getItem("user");
-      if (raw) router.replace("/dashboard");
-    } catch {}
-  }, [router]);
-
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitting },
   } = useForm<FormValues>({ resolver: zodResolver(schema), mode: "onChange" });
 
+  // if user already logged in -> redirect
+  React.useEffect(() => {
+    try {
+      const raw = localStorage.getItem("user");
+      if (raw) {
+        router.replace("/dashboard");
+      }
+    } catch {}
+  }, [router]);
+
   const onSubmit = async (values: FormValues) => {
     setLoading(true);
     try {
       const phone = normalizeIranianMobile(values.phone);
 
+      // Fetch mock user
       const res = await fetch(
-        process.env.NEXT_PUBLIC_MOCK_API_URL ?? "/api/mock",
+        process.env.NEXT_PUBLIC_MOCK_API_URL ??
+          "https://randomuser.me/api/?results=1",
         {
           cache: "no-store",
         }
@@ -60,52 +63,109 @@ export default function LoginPage() {
         r?.picture?.large || r?.picture?.medium || "/avatar-placeholder.png";
 
       saveUser({ name, email, picture, phone });
-      router.replace("/dashboard");
-    } catch (e) {
-      console.error(e);
-      alert("خطا در ارتباط با API ماک. لطفاً مجدد تلاش کنید.");
+
+      // tiny delay to show cool animation
+      setTimeout(() => {
+        router.replace("/dashboard");
+      }, 350);
+    } catch (err) {
+      console.error(err);
+      alert("خطا در دریافت داده‌ی ماک — دوباره امتحان کنید.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="mt-16">
-      <h1 className="text-2xl font-bold mb-6">ورود با موبایل</h1>
+    <div className="card-cyber relative rounded-2xl glow-border p-6 card-padding-sm bg-grid">
+      <div className="flex items-center justify-between mb-6">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-extrabold neon-underline">
+            CyberCity Login
+          </h1>
+          <p className="mt-1 text-sm text-white/70">
+            Sign in with your Iranian mobile number
+          </p>
+        </div>
+        <div className="hidden sm:flex items-center gap-3">
+          {/* small decorative neon lines */}
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#7c3aed] to-[#00e5ff] opacity-20" />
+        </div>
+      </div>
 
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-4"
-        aria-describedby={errors.phone ? "phone-error" : undefined}
-      >
-        <div className="space-y-2">
-          <Label htmlFor="phone">شماره موبایل</Label>
+      <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+        <div>
+          <Label htmlFor="phone">Mobile number</Label>
           <Input
             id="phone"
             inputMode="numeric"
-            placeholder="مثلاً 09xxxxxxxxx یا +989xxxxxxxxx"
+            placeholder="09xxxxxxxxx or +989xxxxxxxxx"
             aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "phone-error" : undefined}
             {...register("phone")}
           />
-          {errors.phone && (
-            <p id="phone-error" className="text-sm text-red-600" role="alert">
+          {errors.phone ? (
+            <p
+              id="phone-error"
+              role="alert"
+              className="mt-2 text-sm text-rose-400"
+            >
               {errors.phone.message}
             </p>
+          ) : (
+            <p className="mt-2 text-xs text-white/60">
+              Allowed formats: <span className="font-mono">09xxxxxxxxx</span>,{" "}
+              <span className="font-mono">+989xxxxxxxxx</span>
+            </p>
           )}
-          <p className="text-xs text-gray-500" aria-live="polite">
-            فرمت‌های مجاز: 09xxxxxxxxx ، +989xxxxxxxxx ، 00989xxxxxxxxx
-          </p>
         </div>
 
-        <Button
-          type="submit"
-          disabled={!isValid || loading || isSubmitting}
-          className="w-full"
-          aria-busy={loading || isSubmitting}
-        >
-          {loading || isSubmitting ? "در حال ورود..." : "ورود"}
-        </Button>
+        <div className="flex items-center justify-between gap-3">
+          <Button
+            type="submit"
+            variant="primary"
+            className="flex-1"
+            disabled={!isValid || loading || isSubmitting}
+            aria-busy={loading || isSubmitting}
+          >
+            {loading || isSubmitting ? "Signing in..." : "Sign in"}
+          </Button>
+
+          <button
+            type="button"
+            onClick={() => {
+              // quick demo account (fills a demo number and triggers submit)
+              const demo = "+989123456789";
+              (
+                document.getElementById("phone") as HTMLInputElement | null
+              )?.focus();
+              // set value programmatically
+              const ev = new Event("input", { bubbles: true });
+              const el = document.getElementById(
+                "phone"
+              ) as HTMLInputElement | null;
+              if (el) {
+                el.value = demo;
+                el.dispatchEvent(ev);
+              }
+            }}
+            className="px-4 py-3 rounded-lg border border-white/6 text-sm text-white/80 hover:bg-white/3"
+          >
+            Demo
+          </button>
+        </div>
+
+        {/* footer small info */}
+        <div className="mt-2 text-xs text-white/50">
+          <p>
+            By signing in you accept this demo's terms. This is a client-side
+            demo — no real authentication.
+          </p>
+        </div>
       </form>
-    </section>
+
+      {/* decorative bottom neon line */}
+      <div className="mt-6 h-1 bg-gradient-to-r from-[#7c3aed]/50 via-[#00e5ff]/30 to-[#7c3aed]/20 rounded-full" />
+    </div>
   );
 }
