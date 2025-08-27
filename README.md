@@ -1,4 +1,8 @@
 # 📱 Simple Client-Side Authentication System
+![React](https://raw.githubusercontent.com/AminJsDev/iran-auth/main/assets/React.svg)
+![Typescript](https://raw.githubusercontent.com/AminJsDev/iran-auth/main/assets/Typescript.svg)
+![TailwindCSS](https://raw.githubusercontent.com/AminJsDev/iran-auth/main/assets/TailwindCSS.svg)
+![License](https://raw.githubusercontent.com/AminJsDev/iran-auth/main/assets/License.svg)
 
 This project is a **Next.js + TypeScript** based client-side authentication demo.  
 It allows users to log in with their **Iranian mobile number**, retrieves mock user data, and stores the session on the **client-side (localStorage)**.  
